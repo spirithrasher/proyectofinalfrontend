@@ -11,14 +11,17 @@ import Footer from './components/Footer';
 function App() {
   const [showCart, setShowCart] = useState(false);
 
+  const openCart = () => setShowCart(true);
+  const closeCart = () => setShowCart(false);
+
   return (
     <>
 
-    <NavbarSection openCart={() => setShowCart(true)}/>
+     <NavbarSection openCart={openCart} />
     <Header />
     <ProductsSection />
     <ContactSection />
-    <CartModal show={showCart} onHide={() => setShowCart(false)} />
+    <CartModal show={showCart} onHide={closeCart} />
     <Footer />
     </>
   );

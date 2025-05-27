@@ -15,6 +15,14 @@ const NavbarSection = ({ openCart }) => {
         <Nav className="ml-auto">
           <Nav.Link href="#products">Productos</Nav.Link>
           <Nav.Link href="#contact">Contacto</Nav.Link>
+          <Button variant="outline-primary" onClick={openCart}>
+            🛒 Carrito{' '}
+            {/* {totalItems > 0 && (
+              <Badge bg="danger" pill className="ms-1">
+                {totalItems}
+              </Badge>
+            )} */}
+          </Button>
         </Nav>
       </Container>
     </Navbar>
