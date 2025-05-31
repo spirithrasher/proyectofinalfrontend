@@ -31,6 +31,9 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
             <Nav.Link as={Link} to="/#products">Productos</Nav.Link>
 
             <NavDropdown title="Categorías" id="categorias-dropdown">
+              <NavDropdown.Item as={Link} to="/">
+                Todos los productos
+              </NavDropdown.Item>
               {categorias.map(cat => (
                 <NavDropdown.Item key={cat.id} onClick={() => handleCategoriaSelect(cat.id)}>
                   {cat.nombre}
