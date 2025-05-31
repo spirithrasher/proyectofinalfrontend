@@ -83,7 +83,7 @@ export default function Pedidos() {
 
   return (
     <Container className="mt-5 pt-5">
-      <h2 className="mb-4">Mis Pedidos</h2>
+      <h2 className="mb-4">Mis Compras</h2>
 
       <Row className="mb-3">
         <Col md={6}>

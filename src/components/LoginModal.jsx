@@ -24,7 +24,7 @@ const LoginModal = ({ show, handleClose }) => {
         <Modal.Title>Iniciar sesión</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Email: test@demo.com Contraseña: 123456</p>
+        <p><small><b>Email: test@demo.com -- Contraseña: 123456</b></small></p>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3">

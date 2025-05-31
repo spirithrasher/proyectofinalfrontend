@@ -1,11 +1,29 @@
 import React from 'react';
 import { Modal, Button, ListGroup } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext'; // Importamos useAuth
+import { useNavigate } from 'react-router-dom'; // Importamos useNavigate para la redirección
 
 const CartModal = ({ show, onHide }) => {
   const { cartItems, removeFromCart } = useCart();
+  const { user } = useAuth();  // Obtenemos el usuario del contexto de autenticación
+  const navigate = useNavigate();  // Inicializamos el hook de navegación
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Cálculo del total
+  const total = cartItems.reduce(
+    (sum, item) => sum + parseFloat(item.price) * item.quantity,
+    0
+  );
+
+  const handleCheckout = () => {
+    if (!user) {
+      navigate('/login'); 
+    } else {
+      // Aquí iría la lógica para procesar el pago
+      console.log('Procesando el pago...');
+
+    }
+  };
 
   return (
     <Modal show={show} onHide={onHide} centered>
@@ -48,8 +66,12 @@ const CartModal = ({ show, onHide }) => {
         <Button variant="secondary" onClick={onHide}>
           Cerrar
         </Button>
-        <Button variant="success" disabled={cartItems.length === 0}>
-          Pagar
+        <Button 
+          variant="success" 
+          disabled={cartItems.length === 0 || !user}  // Deshabilitar si no hay usuario
+          onClick={handleCheckout} 
+        >
+          {cartItems.length === 0 ? 'Agrega productos para pagar' : !user ? 'Inicia sesión para pagar' : 'Pagar'}
         </Button>
       </Modal.Footer>
     </Modal>

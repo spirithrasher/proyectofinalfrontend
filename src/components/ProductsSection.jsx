@@ -17,7 +17,6 @@ function ProductsSection({ onAddToCart }) {
     ? products.filter(product => product.categoria_id === categoriaId)
     : products;
 
-  console.log(filteredProducts)  
   return (
     <section id="products" className="py-5">
       <div className="container my-5">

@@ -42,9 +42,9 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
 
             {user ? (
               <NavDropdown title={`Hola, ${user.name}`} id="user-dropdown" align="end">
-                <NavDropdown.Item as={Link} to="/perfil">Mi perfil</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/ventas">Mis ventas</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/pedidos">Mis pedidos</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/perfil">Mi Perfil</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/ventas">Mis Ventas</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/pedidos">Mis Compras</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/subir-producto">Subir producto</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
