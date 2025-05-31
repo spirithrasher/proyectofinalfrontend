@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { useCart } from './context/CartContext';
+// import { useCart } from './context/CartContext';
 import { Routes, Route } from 'react-router-dom';
 import NavbarSection from './components/NavbarSection';
 import Header from './components/Header';
 import ProductsSection from './components/ProductsSection';
 import CartModal from './components/CartModal';
-import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegisterModal';
-import ScrollToHash from './components/ScrollToHash';
+import ScrollManager from './components/ScrollManager';
+import PrivateRoute from "./routes/PrivateRoute";
 
 import Perfil from './pages/Perfil';
 import Ventas from './pages/Ventas';
@@ -36,7 +36,7 @@ function App() {
         <NavbarSection openCart={openCart} openLogin={openLogin} openRegister={openRegister}/>
         <LoginModal show={showLogin} handleClose={closeLogin} />
         <RegisterModal show={showRegister} handleClose={closeRegister} />
-        <ScrollToHash />
+        <ScrollManager />
         <Routes>
           <Route
             path="/"
@@ -44,14 +44,13 @@ function App() {
               <>
                 <Header />
                 <ProductsSection />
-                <ContactSection />
               </>
             }
           />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/ventas" element={<Ventas />} />
-          <Route path="/pedidos" element={<Pedidos />} />
-          <Route path="/subir-producto" element={<SubirProducto />} />
+          <Route path="/perfil" element={<PrivateRoute><Perfil /></PrivateRoute>} />
+          <Route path="/ventas"  element={<PrivateRoute><Ventas /></PrivateRoute>} />
+          <Route path="/pedidos" element={<PrivateRoute><Pedidos /></PrivateRoute>} />
+          <Route path="/subir-producto" element={<PrivateRoute><SubirProducto /></PrivateRoute>} />
         </Routes>
         <CartModal show={showCart} onHide={closeCart} />
         <Footer />

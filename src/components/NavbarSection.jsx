@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import categorias from '../data/categorias.json';
 
 const NavbarSection = ({ openCart, openLogin, openRegister }) => {
   const { user, logout } = useAuth();
@@ -11,11 +12,6 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
     logout();
   };
 
-  const categorias = [
-    { id: 1, nombre: "Electrónica" },
-    { id: 2, nombre: "Ropa" },
-    { id: 3, nombre: "Hogar" }
-  ];
 
   const handleCategoriaSelect = (categoriaId) => {
     navigate(`/?categoria=${categoriaId}`);
@@ -40,9 +36,6 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
                 </NavDropdown.Item>
               ))}
             </NavDropdown>
-
-            <Nav.Link as={Link} to="/#contact">Contacto</Nav.Link>
-
             <Button variant="outline-primary" onClick={openCart}>
               🛒 Carrito
             </Button>

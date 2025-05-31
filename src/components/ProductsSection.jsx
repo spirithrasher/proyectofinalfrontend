@@ -2,12 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import products from '../data/products.json';
-
-const categorias = [
-  { id: 1, nombre: "Electrónica" },
-  { id: 2, nombre: "Ropa" },
-  { id: 3, nombre: "Hogar" },
-];
+import categorias from '../data/categorias.json';
 
 function ProductsSection({ onAddToCart }) {
   const { search } = useLocation();
@@ -22,6 +17,7 @@ function ProductsSection({ onAddToCart }) {
     ? products.filter(product => product.categoria_id === categoriaId)
     : products;
 
+  console.log(filteredProducts)  
   return (
     <section id="products" className="py-5">
       <div className="container my-5">
