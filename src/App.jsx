@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from './context/CartContext';
+import { Routes, Route } from 'react-router-dom';
 import NavbarSection from './components/NavbarSection';
 import Header from './components/Header';
 import ProductsSection from './components/ProductsSection';
@@ -8,6 +9,12 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegisterModal';
+import ScrollToHash from './components/ScrollToHash';
+
+import Perfil from './pages/Perfil';
+import Ventas from './pages/Ventas';
+import Pedidos from './pages/Pedidos';
+import SubirProducto from './pages/SubirProducto';
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -29,9 +36,23 @@ function App() {
       <NavbarSection openCart={openCart} openLogin={openLogin} openRegister={openRegister}/>
       <LoginModal show={showLogin} handleClose={closeLogin} />
       <RegisterModal show={showRegister} handleClose={closeRegister} />
-      <Header />
-      <ProductsSection />
-      <ContactSection />
+      <ScrollToHash />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <ProductsSection />
+              <ContactSection />
+            </>
+          }
+        />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/ventas" element={<Ventas />} />
+        <Route path="/pedidos" element={<Pedidos />} />
+        <Route path="/subir-producto" element={<SubirProducto />} />
+      </Routes>
       <CartModal show={showCart} onHide={closeCart} />
       <Footer />
       
