@@ -32,30 +32,30 @@ function App() {
 
   return (
     <>
-
-      <NavbarSection openCart={openCart} openLogin={openLogin} openRegister={openRegister}/>
-      <LoginModal show={showLogin} handleClose={closeLogin} />
-      <RegisterModal show={showRegister} handleClose={closeRegister} />
-      <ScrollToHash />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header />
-              <ProductsSection />
-              <ContactSection />
-            </>
-          }
-        />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/ventas" element={<Ventas />} />
-        <Route path="/pedidos" element={<Pedidos />} />
-        <Route path="/subir-producto" element={<SubirProducto />} />
-      </Routes>
-      <CartModal show={showCart} onHide={closeCart} />
-      <Footer />
-      
+      <div className="d-flex flex-column min-vh-100">
+        <NavbarSection openCart={openCart} openLogin={openLogin} openRegister={openRegister}/>
+        <LoginModal show={showLogin} handleClose={closeLogin} />
+        <RegisterModal show={showRegister} handleClose={closeRegister} />
+        <ScrollToHash />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <ProductsSection />
+                <ContactSection />
+              </>
+            }
+          />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/ventas" element={<Ventas />} />
+          <Route path="/pedidos" element={<Pedidos />} />
+          <Route path="/subir-producto" element={<SubirProducto />} />
+        </Routes>
+        <CartModal show={showCart} onHide={closeCart} />
+        <Footer />
+      </div>
     </>
   );
 }
