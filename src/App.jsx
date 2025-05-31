@@ -7,10 +7,12 @@ import CartModal from './components/CartModal';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import LoginModal from './components/LoginModal';
+import RegisterModal from './components/RegisterModal';
 
 function App() {
   const [showCart, setShowCart] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   const openCart = () => setShowCart(true);
   const closeCart = () => setShowCart(false);
@@ -18,11 +20,15 @@ function App() {
   const openLogin = () => setShowLogin(true);
   const closeLogin = () => setShowLogin(false);
 
+  const openRegister = () => setShowRegister(true);
+  const closeRegister = () => setShowRegister(false);
+
   return (
     <>
 
-      <NavbarSection openCart={openCart} openLogin={openLogin} />
+      <NavbarSection openCart={openCart} openLogin={openLogin} openRegister={openRegister}/>
       <LoginModal show={showLogin} handleClose={closeLogin} />
+      <RegisterModal show={showRegister} handleClose={closeRegister} />
       <Header />
       <ProductsSection />
       <ContactSection />
