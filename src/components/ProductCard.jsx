@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
-import VerProductoModal from './VerProductoModal'; // Asegúrate de importar el modal
+import VerProductoModal from './VerProductoModal';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();

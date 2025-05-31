@@ -1,13 +1,13 @@
 import React from 'react';
 import { Modal, Button, ListGroup } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext'; // Importamos useAuth
-import { useNavigate } from 'react-router-dom'; // Importamos useNavigate para la redirección
+import { useAuth } from '../context/AuthContext'; 
+import { useNavigate } from 'react-router-dom'; 
 
 const CartModal = ({ show, onHide }) => {
   const { cartItems, removeFromCart } = useCart();
-  const { user } = useAuth();  // Obtenemos el usuario del contexto de autenticación
-  const navigate = useNavigate();  // Inicializamos el hook de navegación
+  const { user } = useAuth();  
+  const navigate = useNavigate();  
 
   // Cálculo del total
   const total = cartItems.reduce(

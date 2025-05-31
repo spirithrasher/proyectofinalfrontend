@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       }, 1000);
     });
 
-    // Para conectar con backend real en Express:
+    // Para conectar con backend con Express:
     /*
     try {
       const res = await fetch("http://localhost:3000/api/login", {
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
       }, 1000);
     });
 
-    // Para conectar con backend real en Express:
+    // Para conectar con backend con Express:
     /*
     try {
       const res = await fetch("http://localhost:3000/api/register", {

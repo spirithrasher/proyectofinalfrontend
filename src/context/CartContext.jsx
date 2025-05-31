@@ -1,13 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// Crear el contexto
+
 const CartContext = createContext();
 
-// Componente que proporciona el contexto a la aplicación
+
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Cargar el carrito desde localStorage cuando la app se monta
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
@@ -22,9 +21,9 @@ export const CartProvider = ({ children }) => {
     // Retornamos un objeto limpio con solo las propiedades necesarias
     return { id, name, price, image };
   };
-  // Función para añadir un producto al carrito
+  
   const addToCart = (product) => {
-    // Limpiar el producto para asegurarnos de que solo tiene las propiedades necesarias
+   
     const cleanedProduct = cleanProduct(product);
 
     setCartItems((prev) => {
@@ -45,8 +44,6 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-
-  // Función para eliminar un producto del carrito
   const removeFromCart = (productId) => {
     setCartItems((prev) => {
       const updatedCart = prev.filter(item => item.id !== productId);

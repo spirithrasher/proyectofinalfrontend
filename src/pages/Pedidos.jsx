@@ -10,7 +10,6 @@ import {
 import { Table, Form, Container, Button, Row, Col, Spinner } from 'react-bootstrap';
 import Papa from 'papaparse';
 
-// Mock data
 const pedidosData = [
   { id: 1, producto: 'Producto A', fecha: '2025-05-01', estado: 'Enviado', cantidad: 2, total: 2000 },
   { id: 2, producto: 'Producto B', fecha: '2025-05-03', estado: 'Pendiente', cantidad: 1, total: 3000 },

@@ -19,32 +19,32 @@ export default function Perfil() {
     e.preventDefault();
     console.log('Datos del perfil:', formData);
 
-    // Cuando quieras enviar al backend, descomenta esta línea:
+    // para enviar al backend
     // await guardarPerfilEnBackend(formData);
   };
 
   // Función preparada para enviar los datos al backend
-  const guardarPerfilEnBackend = async (datos) => {
-    try {
-      const res = await fetch('http://localhost:3000/api/perfil', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datos)
-      });
+//   const guardarPerfilEnBackend = async (datos) => {
+//     try {
+//       const res = await fetch('http://localhost:3000/api/perfil', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(datos)
+//       });
 
-      const data = await res.json();
+//       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.message || 'Error al guardar perfil');
-      }
+//       if (!res.ok) {
+//         throw new Error(data.message || 'Error al guardar perfil');
+//       }
 
-      console.log('Perfil guardado en backend:', data);
-    } catch (error) {
-      console.error('Error al enviar al backend:', error.message);
-    }
-  };
+//       console.log('Perfil guardado en backend:', data);
+//     } catch (error) {
+//       console.error('Error al enviar al backend:', error.message);
+//     }
+//   };
 
   return (
     <Container className="mt-5 pt-5">
