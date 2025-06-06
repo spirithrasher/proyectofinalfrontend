@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Form, Button, Container,Toast, ToastContainer } from 'react-bootstrap';
 
 export default function Perfil() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,44 @@ export default function Perfil() {
     telefono: '',
   });
 
+  const [originalData, setOriginalData] = useState(null);
+  const [mensaje, setMensaje] = useState('');
+  const [showToast, setShowToast] = useState(false);
+
+  // Cargar datos del usuario desde localStorage/backend
+  useEffect(() => {
+    const usuarioLocal = JSON.parse(localStorage.getItem("user"));
+    if (usuarioLocal) {
+      fetchPerfil(usuarioLocal.id);
+    }
+  }, []);
+
+  const localUser = JSON.parse(localStorage.getItem("user"));
+
+  const fetchPerfil = async (userId) => {
+    try {
+      const res = await fetch(`http://localhost:3000/perfil/${userId}`,{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localUser.token}`
+        }
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        // console.log(data)
+        const datos = {nombre: data.name, rut: '1-9' ,email: data.email, direccion: '123 calle', telefono: '0000' }
+        setFormData(datos);
+        setOriginalData(datos);
+      } else {
+        throw new Error(data.message || "No se pudo cargar el perfil");
+      }
+    } catch (err) {
+      console.error("Error al cargar perfil:", err.message);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -17,39 +55,49 @@ export default function Perfil() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos del perfil:', formData);
 
-    // para enviar al backend
-    // await guardarPerfilEnBackend(formData);
+    // Comparar con los datos originales para evitar guardar si no hay cambios
+    if (JSON.stringify(formData) === JSON.stringify(originalData)) {
+      setMensaje("No hay cambios para guardar");
+      return;
+    }
+    const userId = localUser.id;
+    try {
+      const res = await fetch(`http://localhost:3000/perfil/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json',
+          "Authorization": `Bearer ${localUser.token}`
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+      console.log(data)
+
+      if (!res.ok) throw new Error(data.message || "Error al guardar perfil");
+
+      setMensaje("Perfil actualizado correctamente");
+      setShowToast(true); 
+      setTimeout(() => setShowToast(false), 2000);
+      setOriginalData(formData); // actualizar datos originales
+    } catch (err) {
+      console.error("Error al actualizar perfil:", err.message);
+      setMensaje("Error al guardar perfil");
+    }
   };
 
-  // Función preparada para enviar los datos al backend
-//   const guardarPerfilEnBackend = async (datos) => {
-//     try {
-//       const res = await fetch('http://localhost:3000/api/perfil', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(datos)
-//       });
-
-//       const data = await res.json();
-
-//       if (!res.ok) {
-//         throw new Error(data.message || 'Error al guardar perfil');
-//       }
-
-//       console.log('Perfil guardado en backend:', data);
-//     } catch (error) {
-//       console.error('Error al enviar al backend:', error.message);
-//     }
-//   };
-
   return (
+    
     <Container className="mt-5 pt-5">
+      <ToastContainer position="top-end" className="p-3" style={{ zIndex: 9999 }}>
+        <Toast show={showToast} onClose={() => setShowToast(false)} bg="success">
+          <Toast.Body className="text-white">Perfil Editado con Exito!</Toast.Body>
+        </Toast>
+     </ToastContainer>
       <h2 className="mb-4">Mi Perfil</h2>
+      {mensaje && <p>{mensaje}</p>}
       <Form onSubmit={handleSubmit}>
+        {/* Campos iguales que antes */}
         <Form.Group controlId="formNombre" className="mb-3">
           <Form.Label>Nombre</Form.Label>
           <Form.Control

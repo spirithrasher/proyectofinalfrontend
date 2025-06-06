@@ -12,79 +12,51 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    // Mock (simulación de backend)
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === "test@demo.com" && password === "123456") {
-          const fakeUser = { email, name: "Usuario Demo" };
-          setUser(fakeUser);
-          localStorage.setItem("user", JSON.stringify(fakeUser));
-          resolve();
-        } else {
-          reject(new Error("Correo o contraseña inválidos"));
-        }
-      }, 1000);
-    });
-
-    // Para conectar con backend con Express:
-    /*
     try {
-      const res = await fetch("http://localhost:3000/api/login", {
+      const res = await fetch("http://localhost:3000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
+      // console.log(res.ok)
       const data = await res.json();
-
+     
       if (res.ok) {
-        setUser(data.user);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        // console.log(data['user_login']['token'])
+        const userlogin = { id: data['user_login']['user']['id'], email,name: data['user_login']['user']['name'], token: data['user_login']['token']  }
+        setUser(userlogin);
+        localStorage.setItem("user", JSON.stringify(userlogin));
       } else {
         throw new Error(data.message || "Login fallido");
       }
     } catch (error) {
       throw error;
     }
-    */
+    
   };
 
-  const register = async (name, email, password) => {
-    // Mock (simulación de backend)
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (!email.includes("@") || password.length < 6) {
-          reject(new Error("Datos inválidos"));
-        } else {
-          const newUser = { name, email };
-          setUser(newUser);
-          localStorage.setItem("user", JSON.stringify(newUser));
-          resolve();
-        }
-      }, 1000);
-    });
-
-    // Para conectar con backend con Express:
-    /*
+  const register = async (name, email, password) => {   
     try {
-      const res = await fetch("http://localhost:3000/api/register", {
+      const res = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
 
       const data = await res.json();
-
+      console.log(data)
       if (res.ok) {
-        setUser(data.user);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        const userlogin = { id: data['user_login']['user']['id'],email,name: data['user']['name'], token: data['token']  }
+        setUser(userlogin);
+        localStorage.setItem("user", JSON.stringify(userlogin));
       } else {
         throw new Error(data.message || "Registro fallido");
       }
     } catch (error) {
       throw error;
     }
-    */
+    
   };
 
   const logout = () => {

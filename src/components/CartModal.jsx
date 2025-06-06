@@ -3,6 +3,7 @@ import { Modal, Button, ListGroup } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext'; 
 import { useNavigate } from 'react-router-dom'; 
+import { iniciarPago } from '../utils/cartUtils.js'
 
 const CartModal = ({ show, onHide }) => {
   const { cartItems, removeFromCart } = useCart();
@@ -15,12 +16,19 @@ const CartModal = ({ show, onHide }) => {
     0
   );
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!user) {
       navigate('/login'); 
     } else {
-      // Aquí iría la lógica para procesar el pago
-      console.log('Procesando el pago...');
+      try {
+        const urlWebpay = await iniciarPago(cartItems, user);
+        console.log('webpayurl: ',urlWebpay)
+        window.location.href = `${urlWebpay.url}?token_ws=${urlWebpay.token}`; // Redirige al formulario Webpay
+      } catch (err) {
+        console.error("Error al redirigir al pago:", err.message);
+        alert("Hubo un problema al iniciar el pago. Intenta nuevamente.");
+      }
+      
 
     }
   };
