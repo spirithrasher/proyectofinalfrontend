@@ -15,6 +15,7 @@ const PagoExitoso = () => {
     } else {
       setMensaje('Pago procesado. Gracias por tu compra.');
     }
+    const storedCart = localStorage.removeItem('cart');
   }, [searchParams]);
 
   return (

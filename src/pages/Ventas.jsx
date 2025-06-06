@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState,useEffect } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -10,54 +10,61 @@ import {
 import { Table, Form, Container, Button, Row, Col } from 'react-bootstrap';
 import Papa from 'papaparse';
 
-// Función preparada para obtener ventas desde el backend (aún no se usa)
-// async function fetchVentas() {
-//   try {
-//     const response = await fetch('https://tu-api.com/api/ventas'); // reemplaza con tu URL real
-//     if (!response.ok) {
-//       throw new Error('Error al obtener ventas');
-//     }
-//     const data = await response.json();
-//     console.log('Ventas obtenidas:', data);
-//     return data;
-//   } catch (error) {
-//     console.error('Error al obtener ventas:', error);
-//     return [];
-//   }
-// }
+  
 
-// Datos de prueba (esto se puede reemplazar por lo que venga de fetchVentas)
-const ventasData = [
-  { id: 1, producto: 'Producto A', cantidad: 2, precio: 1000, total: 2000 },
-  { id: 2, producto: 'Producto B', cantidad: 1, precio: 3000, total: 3000 },
-  { id: 3, producto: 'Producto C', cantidad: 5, precio: 500, total: 2500 },
-  { id: 4, producto: 'Producto D', cantidad: 3, precio: 1500, total: 4500 },
-  { id: 5, producto: 'Producto E', cantidad: 4, precio: 2000, total: 8000 },
-  { id: 6, producto: 'Producto F', cantidad: 1, precio: 2500, total: 2500 },
-  { id: 7, producto: 'Producto G', cantidad: 6, precio: 900, total: 5400 },
-  { id: 8, producto: 'Producto H', cantidad: 2, precio: 1000, total: 2000 },
-  { id: 9, producto: 'Producto I', cantidad: 1, precio: 3000, total: 3000 },
-  { id: 10, producto: 'Producto J', cantidad: 5, precio: 500, total: 2500 },
-  { id: 11, producto: 'Producto K', cantidad: 3, precio: 1500, total: 4500 },
-  { id: 12, producto: 'Producto L', cantidad: 4, precio: 2000, total: 8000 },
-  { id: 13, producto: 'Producto M', cantidad: 1, precio: 2500, total: 2500 },
-  { id: 14, producto: 'Producto N', cantidad: 6, precio: 900, total: 5400 },
-];
+
 
 export default function Ventas() {
   const [globalFilter, setGlobalFilter] = useState('');
   const [sorting, setSorting] = useState([]);
+  const [ventas, setVentas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const localUser = JSON.parse(localStorage.getItem("user"));
+  const userId = localUser.id;
+
+  useEffect(() => {
+    // Simular carga de datos desde backend
+    setTimeout(() => {
+      fetchVentas() //setPedidos(pedidosData); //cambiar por fetchPedidos()
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  // Función preparada para obtener ventas desde el backend (aún no se usa)
+  async function fetchVentas() {
+    try {
+      const response = await fetch(`http://localhost:3000/ventas/${userId}`,{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localUser.token}`
+        }
+      }); // reemplaza con tu URL real
+      if (!response.ok) {
+        throw new Error('Error al obtener ventas');
+      }
+      const data = await response.json();
+      console.log('Ventas obtenidas:', data);
+      setVentas(data);
+      return data;
+    } catch (error) {
+      console.error('Error al obtener ventas:', error);
+      return [];
+    }
+  }
+
+
 
   const columns = useMemo(() => [
-    { accessorKey: 'id', header: () => 'ID' },
-    { accessorKey: 'producto', header: () => 'Producto' },
-    { accessorKey: 'cantidad', header: () => 'Cantidad' },
-    { accessorKey: 'precio', header: () => 'Precio Unitario' },
-    { accessorKey: 'total', header: () => 'Total' },
+    { accessorKey: 'order_id', header: () => 'ID' },
+    { accessorKey: 'product_name', header: () => 'Producto' },
+    { accessorKey: 'quantity', header: () => 'Cantidad' },
+    { accessorKey: 'unit_price', header: () => 'Precio Unitario' },
+    { accessorKey: 'total_earned', header: () => 'Total' },
   ], []);
 
   const table = useReactTable({
-    data: ventasData,
+    data: ventas,
     columns,
     state: { sorting, globalFilter },
     onSortingChange: setSorting,

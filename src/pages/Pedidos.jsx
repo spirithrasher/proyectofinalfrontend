@@ -22,36 +22,46 @@ export default function Pedidos() {
   const [globalFilter, setGlobalFilter] = useState('');
   const [sorting, setSorting] = useState([]);
   const [loading, setLoading] = useState(true);
+  const localUser = JSON.parse(localStorage.getItem("user"));
+  const userId = localUser.id;
 
   useEffect(() => {
     // Simular carga de datos desde backend
     setTimeout(() => {
-      setPedidos(pedidosData); //cambiar por fetchPedidos()
+      fetchPedidos() //setPedidos(pedidosData); //cambiar por fetchPedidos()
       setLoading(false);
     }, 500);
   }, []);
 
   //Función preparada para usar en el futuro (aún no se llama)
-//   const fetchPedidos = async () => {
-//     try {
-//       const response = await fetch('http://localhost:3000/api/pedidos'); // Ajusta tu URL/API
-//       if (!response.ok) throw new Error('Error al obtener pedidos');
-//       const data = await response.json();
-//       setPedidos(data);
-//     } catch (error) {
-//       console.error('Error al obtener pedidos:', error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+  const fetchPedidos = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/pedidos/${userId}`,{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localUser.token}`
+        }
+      }
+      ); // Ajusta tu URL/API
+      if (!response.ok) throw new Error('Error al obtener pedidos');
+      const data = await response.json();
+      console.log(data)
+      setPedidos(data);
+    } catch (error) {
+      console.error('Error al obtener pedidos:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const columns = useMemo(() => [
-    { accessorKey: 'id', header: () => 'ID' },
-    { accessorKey: 'producto', header: () => 'Producto' },
-    { accessorKey: 'fecha', header: () => 'Fecha' },
-    { accessorKey: 'estado', header: () => 'Estado' },
-    { accessorKey: 'cantidad', header: () => 'Cantidad' },
-    { accessorKey: 'total', header: () => 'Total' },
+    { accessorKey: 'order_id', header: () => 'ID' },
+    { accessorKey: 'product_name', header: () => 'Producto' },
+    { accessorKey: 'created_at', header: () => 'Fecha' },
+    { accessorKey: 'orden_status', header: () => 'Estado' },
+    { accessorKey: 'quantity', header: () => 'Cantidad' },
+    { accessorKey: 'unit_price', header: () => 'Total' },
   ], []);
 
   const table = useReactTable({

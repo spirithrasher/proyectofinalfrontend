@@ -28,8 +28,6 @@ const CartModal = ({ show, onHide }) => {
         console.error("Error al redirigir al pago:", err.message);
         alert("Hubo un problema al iniciar el pago. Intenta nuevamente.");
       }
-      
-
     }
   };
 
