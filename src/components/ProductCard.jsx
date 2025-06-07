@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
   return (
     <>
       <Card className="h-100 text-center">
-        <Card.Img variant="top" src={product.image || 'https://via.placeholder.com/300x200'} />
+        <Card.Img variant="top" src={`http://localhost:3000${product.imagen}` || 'https://via.placeholder.com/300x200'} />
         <Card.Body className="d-flex flex-column">
           <Card.Title>{product.name}</Card.Title>
           <Card.Text>${product.price}</Card.Text>

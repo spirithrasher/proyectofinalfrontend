@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const PagoExitoso = () => {
   const [mensaje, setMensaje] = useState('Confirmando pago...');
   const [searchParams] = useSearchParams();
+   const navigate = useNavigate();
 
   useEffect(() => {
     // Puedes verificar algún parámetro si deseas
@@ -16,6 +17,11 @@ const PagoExitoso = () => {
       setMensaje('Pago procesado. Gracias por tu compra.');
     }
     const storedCart = localStorage.removeItem('cart');
+    
+    // Redirigir después de 3 segundos
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, 3000);
   }, [searchParams]);
 
   return (

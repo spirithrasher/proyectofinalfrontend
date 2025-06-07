@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import categorias from '../data/categorias.json';
+// import categorias from '../data/categorias.json';
 
 const NavbarSection = ({ openCart, openLogin, openRegister }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    const fetchCategorias = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/categorias'); // ajustá si usás un proxy o dominio diferente
+        const data = await response.json();
+        setCategorias(data);
+      } catch (error) {
+        console.error('Error al cargar las categorías:', error);
+      }
+    };
+
+    fetchCategorias();
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -32,7 +47,7 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
               </NavDropdown.Item>
               {categorias.map(cat => (
                 <NavDropdown.Item key={cat.id} onClick={() => handleCategoriaSelect(cat.id)}>
-                  {cat.nombre}
+                  {cat.name}
                 </NavDropdown.Item>
               ))}
             </NavDropdown>

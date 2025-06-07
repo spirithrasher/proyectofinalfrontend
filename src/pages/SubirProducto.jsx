@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 
 export default function SubirProducto() {
@@ -7,7 +7,27 @@ export default function SubirProducto() {
     precio: '',
     descripcion: '',
     imagen: null,
+    seller_id: '',
+    categoria_id: ''
   });
+  const localUser = JSON.parse(localStorage.getItem("user"));
+
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+      const fetchCategorias = async () => {
+        try {
+          const response = await fetch('http://localhost:3000/categorias'); // ajustá si usás un proxy o dominio diferente
+          const data = await response.json();
+          setCategorias(data);
+        } catch (error) {
+          console.error('Error al cargar las categorías:', error);
+        }
+      };
+  
+      fetchCategorias();
+  }, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,10 +38,43 @@ export default function SubirProducto() {
     setFormData(prev => ({ ...prev, imagen: e.target.files[0] }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos del producto:', formData);
-    // Aquí enviar al backend cuando esté disponible
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      alert('Debes iniciar sesión');
+      return;
+    }
+
+    const form = new FormData();
+      form.append('nombre', formData.nombre);
+      form.append('precio', formData.precio);
+      form.append('descripcion', formData.descripcion);
+      form.append('categoria_id', formData.categoria_id);
+      form.append('imagen', formData.imagen);
+      form.append('seller_id', user.id); //ID del usuario
+        
+      console.log(form)
+
+      try {
+        const res = await fetch('http://localhost:3000/productos', {
+          method: 'POST',
+          headers: {
+            "Authorization": `Bearer ${localUser.token}`
+          },
+          body: form
+        });
+        console.log(res)
+        if (!res.ok) throw new Error('Error al subir el producto');
+
+        const data = await res.json();
+        console.log('Producto creado:', data);
+        alert('Producto subido con éxito');
+      } catch (err) {
+        console.error(err);
+        alert('Ocurrió un error al subir el producto');
+      }
   };
 
   return (
@@ -63,6 +116,23 @@ export default function SubirProducto() {
             onChange={handleChange}
             required
           />
+        </Form.Group>
+        
+        <Form.Group className="mb-3">
+          <Form.Label>Categoría</Form.Label>
+          <Form.Select
+            name="categoria_id"
+            value={formData.categoria_id}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Seleccionar categoría</option>
+            {categorias.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-4" controlId="formImagen">
