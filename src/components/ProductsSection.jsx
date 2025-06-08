@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from './ProductCard';
+import '../utils/css//ProductsSection.css';
 // import products from '../data/products.json';
 // import categorias from '../data/categorias.json';
 
@@ -57,21 +58,22 @@ function ProductsSection({ onAddToCart }) {
     : productos;
 
   return (
-    <section id="products" className="py-5">
-      <div className="container my-5">
-        <h2 className="mb-4 text-center">{categoriaNombre}</h2>
-        <div className="row">
-          {filteredProducts.map((product) => (
-            <div className="col-md-4 mb-4" key={product.id}>
-              <ProductCard product={product} onAddToCart={onAddToCart} />
-            </div>
-          ))}
-        </div>
-        {filteredProducts.length === 0 && (
-          <p className="text-center">No hay productos en esta categoría.</p>
-        )}
+    <section id="products" className="py-5 bg-dark text-white">
+    <div className="container my-5">
+      <h2 className="mb-4 text-center text-warning">{categoriaNombre}</h2>
+      <div className="row">
+        {filteredProducts.map((product) => (
+          <div className="col-md-4 mb-4" key={product.id}>
+            <ProductCard product={product} onAddToCart={onAddToCart} />
+          </div>
+        ))}
       </div>
-    </section>
+      {filteredProducts.length === 0 && (
+        <p className="text-center text-muted">No hay productos en esta categoría.</p>
+      )}
+    </div>
+  </section>
+
   );
 }
 

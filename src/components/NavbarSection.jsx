@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-// import categorias from '../data/categorias.json';
+import '../utils/css/NavbarSection.css'; // <-- Archivo de estilos
 
 const NavbarSection = ({ openCart, openLogin, openRegister }) => {
   const { user, logout } = useAuth();
@@ -12,7 +12,7 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch('http://localhost:3000/categorias'); // ajustá si usás un proxy o dominio diferente
+        const response = await fetch('http://localhost:3000/categorias');
         const data = await response.json();
         setCategorias(data);
       } catch (error) {
@@ -27,21 +27,20 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
     logout();
   };
 
-
   const handleCategoriaSelect = (categoriaId) => {
     navigate(`/?categoria=${categoriaId}`);
   };
 
   return (
-    <Navbar bg="light" expand="lg" fixed="top" className="sticky-top shadow-sm">
+    <Navbar expand="lg" fixed="top" className="navbar-custom shadow-sm">
       <Container>
-        <Navbar.Brand as={Link} to="/">Mi Tienda</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/" className="brand-custom">🛍️ Mi Tienda</Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar" />
         <Navbar.Collapse id="main-navbar">
-          <Nav className="ms-auto align-items-center gap-2">
-            <Nav.Link as={Link} to="/#products">Productos</Nav.Link>
+          <Nav className="ms-auto align-items-center gap-3">
+            <Nav.Link as={Link} to="/#products" className="nav-link-custom">Productos</Nav.Link>
 
-            <NavDropdown title="Categorías" id="categorias-dropdown">
+            <NavDropdown title="Categorías" id="categorias-dropdown" className="nav-dropdown-custom">
               <NavDropdown.Item as={Link} to="/">
                 Todos los productos
               </NavDropdown.Item>
@@ -51,12 +50,13 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
                 </NavDropdown.Item>
               ))}
             </NavDropdown>
-            <Button variant="outline-primary" onClick={openCart}>
+
+            <Button variant="outline-light" className="cart-btn" onClick={openCart}>
               🛒 Carrito
             </Button>
 
             {user ? (
-              <NavDropdown title={`Hola, ${user.name}`} id="user-dropdown" align="end">
+              <NavDropdown title={`👤 ${user.name}`} id="user-dropdown" align="end" className="nav-dropdown-custom">
                 <NavDropdown.Item as={Link} to="/perfil">Mi Perfil</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/ventas">Mis Ventas</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/pedidos">Mis Compras</NavDropdown.Item>
@@ -65,14 +65,10 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
                 <NavDropdown.Item onClick={handleLogout}>Cerrar sesión</NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <>
-                <Button variant="outline-success" onClick={openLogin}>
-                  Iniciar sesión
-                </Button>
-                <Button variant="outline-secondary" onClick={openRegister}>
-                  Registrarse
-                </Button>
-              </>
+              <div className="d-flex gap-2">
+                <Button variant="outline-light" onClick={openLogin}>Iniciar sesión</Button>
+                <Button variant="light" onClick={openRegister}>Registrarse</Button>
+              </div>
             )}
           </Nav>
         </Navbar.Collapse>

@@ -1,0 +1,78 @@
+/* Botón con borde dorado y texto dorado, fondo transparente (igual que navbar) */
+.btn-outline-custom {
+  color: #ffc107;
+  border: 1.5px solid #ffc107;
+  background-color: transparent;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus {
+  background-color: #ffc107;
+  color: #212529;
+  text-decoration: none;
+  box-shadow: 0 0 8px #ffc107aa;
+}
+
+/* Botón dorado sólido igual al navbar */
+.btn-warning-custom {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  padding: 0.375rem 0.75rem;
+}
+
+.btn-warning-custom:hover,
+.btn-warning-custom:focus {
+  background-color: #e0a800;
+  color: #212529;
+  box-shadow: 0 0 8px #e0a800aa;
+}
+
+/* Precio en dorado */
+.price-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffc107;
+  margin-bottom: 0.75rem;
+}
+
+.product-title {
+  color: #1f1e1c; /* Amarillo dorado para coincidir con el estilo */
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.product-title-bg {
+  background-color: rgba(0,0,0,0.6);
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  display: inline-block;
+  color: #ffc107;
+  font-weight: 700;
+}
+
+/* Animación pop */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop-animation {
+  animation: pop 0.3s ease;
+}
+
+

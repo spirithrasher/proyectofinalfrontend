@@ -1,0 +1,82 @@
+.navbar-custom {
+  background-color: #343a40; /* gris oscuro personalizado */
+  padding: 0.7rem 1rem;
+}
+
+.brand-custom {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #ffffff !important;
+}
+
+.nav-link-custom {
+  color: #ffffff !important;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link-custom:hover {
+  color: #ffc107 !important; /* amarillo al pasar el mouse */
+}
+
+.nav-dropdown-custom .dropdown-menu {
+  background-color: #343a40;
+}
+
+.nav-dropdown-custom .dropdown-item {
+  color: #ffffff;
+}
+
+.nav-dropdown-custom .dropdown-item:hover {
+  background-color: #495057;
+  color: #ffc107;
+}
+
+.cart-btn {
+  color: #fff;
+  border-color: #ffc107;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.cart-btn:hover {
+  background-color: #ffc107;
+  color: #000;
+}
+
+button,
+.navbar .btn {
+  font-weight: 500;
+  border-radius: 20px;
+}
+
+
+/* Navbar fondo oscuro y letras blancas */
+.navbar-custom {
+  background-color: #343a40; /* fondo oscuro */
+  padding: 0.7rem 1rem;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link,
+.navbar-custom .nav-dropdown-custom .dropdown-toggle,
+.navbar-custom .dropdown-item {
+  color: #ffffff !important;
+}
+
+/* Hover en links */
+.navbar-custom .nav-link:hover,
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .nav-dropdown-custom .dropdown-toggle:hover {
+  color: #ffc107 !important; /* color amarillo de Bootstrap */
+}
+
+/* Fondo del dropdown */
+.navbar-custom .dropdown-menu {
+  background-color: #343a40;
+  border: none;
+}
+
+/* Separador del dropdown */
+.navbar-custom .dropdown-divider {
+  border-color: #6c757d;
+}
