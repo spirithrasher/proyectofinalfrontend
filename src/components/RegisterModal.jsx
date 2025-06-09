@@ -67,7 +67,7 @@ const RegisterModal = ({ show, handleClose }) => {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit" disabled={loading}>
+          <Button variant="warning" type="submit" disabled={loading}>
             {loading ? (
               <>
                 <Spinner
