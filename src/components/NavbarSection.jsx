@@ -3,6 +3,7 @@ import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../utils/css/NavbarSection.css'; // <-- Archivo de estilos
+import { API_URL } from '../utils/apiConfig';
 
 const NavbarSection = ({ openCart, openLogin, openRegister }) => {
   const { user, logout } = useAuth();
@@ -12,7 +13,7 @@ const NavbarSection = ({ openCart, openLogin, openRegister }) => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch('http://localhost:3000/categorias');
+        const response = await fetch(`${API_URL}/categorias`);
         const data = await response.json();
         setCategorias(data);
       } catch (error) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button, Image } from 'react-bootstrap';
 import '../utils/css/verproductos.css'; // <-- Archivo de estilos
+import { API_URL } from '../utils/apiConfig';
 
 export default function VerProductoModal({ show, handleClose, producto, onAddToCart }) {
   if (!producto) return null;
@@ -14,13 +15,13 @@ export default function VerProductoModal({ show, handleClose, producto, onAddToC
       </Modal.Header>
       <Modal.Body style={{ color: '#212529' }}>
         <Image
-          src={`http://localhost:3000${producto.imagen}` || 'https://via.placeholder.com/300x200'}
+          src={`${API_URL}${producto.imagen}` || 'https://via.placeholder.com/300x200'}
           alt={producto.name}
           fluid
           className="mb-3 rounded"
         />
         <p><strong>Categoría:</strong> {categoriaNombre}</p>
-        <p><strong>Descripción:</strong> {producto.descripcion || 'Sin descripción'}</p>
+        <p><strong>Descripción:</strong> {producto.description|| 'Sin descripción'}</p>
         <p className="fw-bold" style={{ color: '#ffc107', fontSize: '1.25rem' }}>
           Precio: ${producto.price}
         </p>

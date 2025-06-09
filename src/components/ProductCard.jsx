@@ -3,6 +3,7 @@ import { Card, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { useCart } from '../context/CartContext';
 import VerProductoModal from './VerProductoModal';
 import '../utils/css/ProductCard.css'; // <-- Nuevo archivo de estilos
+import { API_URL } from '../utils/apiConfig';
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
@@ -21,7 +22,7 @@ const ProductCard = ({ product }) => {
       <Card className="product-card h-100 text-white text-center">
         <Card.Img
           variant="top"
-          src={`http://localhost:3000${product.imagen}` || 'https://via.placeholder.com/300x200'}
+          src={`${API_URL}${product.imagen}` || 'https://via.placeholder.com/300x200'}
           className="product-image"
         />
         <Card.Body className="d-flex flex-column justify-content-between">

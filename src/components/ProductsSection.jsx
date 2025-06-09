@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import '../utils/css//ProductsSection.css';
+import { API_URL } from '../utils/apiConfig';
 // import products from '../data/products.json';
 // import categorias from '../data/categorias.json';
 
@@ -18,7 +19,7 @@ function ProductsSection({ onAddToCart }) {
 
   const fetchProductos = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/productos`,{
+      const response = await fetch(`${API_URL}/productos`,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +39,7 @@ function ProductsSection({ onAddToCart }) {
 
   const fetchCategorias = async () => {
       try {
-        const response = await fetch('http://localhost:3000/categorias'); // ajustá si usás un proxy o dominio diferente
+        const response = await fetch(`${API_URL}/categorias`); // ajustá si usás un proxy o dominio diferente
         const data = await response.json();
         setCategorias(data);
       } catch (error) {
