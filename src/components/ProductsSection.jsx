@@ -23,7 +23,8 @@ function ProductsSection({ onAddToCart }) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-        }
+        },
+        credentials: 'include'
       }
       ); // Ajusta tu URL/API
       if (!response.ok) throw new Error('Error al obtener pedidos');
