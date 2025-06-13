@@ -1,5 +1,7 @@
+import { API_URL } from '../utils/apiConfig';
+
 export const iniciarPago = async (cartItems, user) => {
-  const res = await fetch('http://localhost:3000/crear-transaccion', {
+  const res = await fetch(`${API_URL}/crear-transaccion`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
