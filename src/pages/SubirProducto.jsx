@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { API_URL } from '../utils/apiConfig';
 
 export default function SubirProducto() {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ export default function SubirProducto() {
   useEffect(() => {
       const fetchCategorias = async () => {
         try {
-          const response = await fetch('http://localhost:3000/categorias'); // ajustá si usás un proxy o dominio diferente
+          const response = await fetch(`${API_URL}/categorias`); // ajustá si usás un proxy o dominio diferente
           const data = await response.json();
           setCategorias(data);
         } catch (error) {
@@ -58,7 +59,7 @@ export default function SubirProducto() {
       console.log(form)
 
       try {
-        const res = await fetch('http://localhost:3000/productos', {
+        const res = await fetch(`${API_URL}/productos`, {
           method: 'POST',
           headers: {
             "Authorization": `Bearer ${localUser.token}`

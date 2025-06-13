@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container,Toast, ToastContainer } from 'react-bootstrap';
+import { API_URL } from '../utils/apiConfig';
 
 export default function Perfil() {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ export default function Perfil() {
 
   const fetchPerfil = async (userId) => {
     try {
-      const res = await fetch(`http://localhost:3000/perfil/${userId}`,{
+      const res = await fetch(`${API_URL}/perfil/${userId}`,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -63,7 +64,7 @@ export default function Perfil() {
     }
     const userId = localUser.id;
     try {
-      const res = await fetch(`http://localhost:3000/perfil/${userId}`, {
+      const res = await fetch(`${API_URL}/perfil/${userId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json',
           "Authorization": `Bearer ${localUser.token}`

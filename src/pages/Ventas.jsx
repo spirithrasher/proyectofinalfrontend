@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-table';
 import { Table, Form, Container, Button, Row, Col } from 'react-bootstrap';
 import Papa from 'papaparse';
-
+import { API_URL } from '../utils/apiConfig';
   
 
 
@@ -33,7 +33,7 @@ export default function Ventas() {
   // Función preparada para obtener ventas desde el backend (aún no se usa)
   async function fetchVentas() {
     try {
-      const response = await fetch(`http://localhost:3000/ventas/${userId}`,{
+      const response = await fetch(`${API_URL}/ventas/${userId}`,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",

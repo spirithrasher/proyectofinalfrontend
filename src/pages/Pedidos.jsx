@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-table';
 import { Table, Form, Container, Button, Row, Col, Spinner } from 'react-bootstrap';
 import Papa from 'papaparse';
+import { API_URL } from '../utils/apiConfig';
 
 const pedidosData = [
   { id: 1, producto: 'Producto A', fecha: '2025-05-01', estado: 'Enviado', cantidad: 2, total: 2000 },
@@ -36,7 +37,7 @@ export default function Pedidos() {
   //Función preparada para usar en el futuro (aún no se llama)
   const fetchPedidos = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/pedidos/${userId}`,{
+      const response = await fetch(`${API_URL}/pedidos/${userId}`,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",
