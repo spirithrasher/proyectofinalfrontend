@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       const data = await res.json();
       console.log(data)
       if (res.ok) {
-        const userlogin = { id: data['user_login']['user']['id'],email,name:data['user_login']['user']['name'], token: data['token']  }
+        const userlogin = { id: data['user']['id'],email,name: data['user']['name'], token: data['token']  }
         setUser(userlogin);
         localStorage.setItem("user", JSON.stringify(userlogin));
       } else {
