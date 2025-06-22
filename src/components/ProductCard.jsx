@@ -50,7 +50,7 @@ const ProductCard = ({ product }) => {
         delay={2000}
         autohide
         bg="success"
-        style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 1050 }}
+        style={{ position: 'fixed', top: 20, right: 20, zIndex: 1050 }}
       >
         <Toast.Body className="text-white">Producto añadido al carrito ✅</Toast.Body>
       </Toast>

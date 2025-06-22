@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { API_URL } from '../utils/apiConfig';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function SubirProducto() {
   const [formData, setFormData] = useState({
@@ -14,6 +16,7 @@ export default function SubirProducto() {
   const localUser = JSON.parse(localStorage.getItem("user"));
 
   const [categorias, setCategorias] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
       const fetchCategorias = async () => {
@@ -72,6 +75,7 @@ export default function SubirProducto() {
         const data = await res.json();
         console.log('Producto creado:', data);
         alert('Producto subido con éxito');
+        navigate('/');
       } catch (err) {
         console.error(err);
         alert('Ocurrió un error al subir el producto');

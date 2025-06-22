@@ -37,8 +37,8 @@ const CartModal = ({ show, onHide }) => {
         <Modal.Title>Carrito de compras</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <a href="/tarjetasdeprueba.pdf" target="_blank" rel="noopener noreferrer">
-          Tarjetas Para Probar
+        <a className="btn btn-warning  mb-5" href="/tarjetasdeprueba.pdf" target="_blank" rel="noopener noreferrer">
+          Tarjetas Para Pagar
         </a>
         {cartItems.length === 0 ? (
           <p>Tu carrito está vacío.</p>

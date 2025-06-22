@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container,Toast, ToastContainer } from 'react-bootstrap';
 import { API_URL } from '../utils/apiConfig';
+import { useAuth } from '../context/AuthContext';
 
 export default function Perfil() {
   const [formData, setFormData] = useState({
@@ -14,7 +15,12 @@ export default function Perfil() {
   const [originalData, setOriginalData] = useState(null);
   const [mensaje, setMensaje] = useState('');
   const [showToast, setShowToast] = useState(false);
-
+  const { user, setUser } = useAuth();
+  const userActualizado = {
+    ...user,
+    name: formData.nombre,
+    email: formData.email,
+  };
   // Cargar datos del usuario desde localStorage/backend
   useEffect(() => {
     const usuarioLocal = JSON.parse(localStorage.getItem("user"));
@@ -38,7 +44,7 @@ export default function Perfil() {
 
       if (res.ok) {
         // console.log(data)
-        const datos = {nombre: data.name, rut: '1-9' ,email: data.email, direccion: '123 calle', telefono: '0000' }
+        const datos = {nombre: data.name, rut: data.rut ,email: data.email, direccion: data.direccion, telefono: data.telefono }
         setFormData(datos);
         setOriginalData(datos);
       } else {
@@ -59,7 +65,7 @@ export default function Perfil() {
 
     // Comparar con los datos originales para evitar guardar si no hay cambios
     if (JSON.stringify(formData) === JSON.stringify(originalData)) {
-      setMensaje("No hay cambios para guardar");
+      alert("No hay cambios para guardar");
       return;
     }
     const userId = localUser.id;
@@ -76,10 +82,9 @@ export default function Perfil() {
       console.log(data)
 
       if (!res.ok) throw new Error(data.message || "Error al guardar perfil");
-
-      setMensaje("Perfil actualizado correctamente");
-      setShowToast(true); 
-      setTimeout(() => setShowToast(false), 2000);
+      setUser(userActualizado);
+      localStorage.setItem("user", JSON.stringify(userActualizado));
+      alert("Perfil actualizado correctamente");
       setOriginalData(formData); // actualizar datos originales
     } catch (err) {
       console.error("Error al actualizar perfil:", err.message);
